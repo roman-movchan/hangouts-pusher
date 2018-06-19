@@ -39,7 +39,6 @@ Files: {$files}
 TEXT;
         }
 
-        dump($text);
         $body = [
             'text' =>
                 $text
