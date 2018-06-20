@@ -35,7 +35,7 @@ TEXT;
             //$files = implode(', ', $commit['added']);
             $files = '```';
             foreach ($commit['added'] as $added) {
-                $files .= $added;
+                $files .= $added.'\n';
             }
             $files .= '```';
             $message = trim(preg_replace('/\s\s+/', ' ', $commit['message']));
