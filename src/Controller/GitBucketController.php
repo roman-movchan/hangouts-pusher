@@ -32,7 +32,13 @@ TEXT;
             $date = new \DateTime($commit['timestamp']);
             $date = $date->format('d.m.Y H:i');
             $url = $commit['url'];
-            $files = implode(', ', $commit['added']);
+            //$files = implode(', ', $commit['added']);
+            $files = '';
+            foreach ($commit['added'] as $added) {
+                $files = '```
+                    '.$added.'
+                    ```';
+            }
             $message = trim(preg_replace('/\s\s+/', ' ', $commit['message']));
             $text .= <<<TEXT
 _{$date}_ <{$url}|{$message}> 
