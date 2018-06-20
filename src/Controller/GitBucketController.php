@@ -33,12 +33,11 @@ TEXT;
             $date = $date->format('d.m.Y H:i');
             $url = $commit['url'];
             //$files = implode(', ', $commit['added']);
-            $files = '';
+            $files = '```';
             foreach ($commit['added'] as $added) {
-                $files = '```
-                    '.$added.'
-                    ```';
+                $files .= $added;
             }
+            $files .= '```';
             $message = trim(preg_replace('/\s\s+/', ' ', $commit['message']));
             $text .= <<<TEXT
 _{$date}_ <{$url}|{$message}> 
