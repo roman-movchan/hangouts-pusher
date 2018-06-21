@@ -13,7 +13,7 @@ class GitBucketController extends Controller
      * @Route("/webhook/gitbucket", name="webhook_gitbucket")
      * @Method("POST")
      */
-    public function index(Request $request)
+    public function index(Request $request, \Twig_Environment $twig)
     {
         $content = $request->getContent();
         $webHookUrl = 'https://chat.googleapis.com/v1/spaces/AAAARTJcHxs/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=d7ay9oT-T1C_P-Z1iMrVBUaU5bH30MPQNLuuLMlVT78%3D';
@@ -22,29 +22,8 @@ class GitBucketController extends Controller
         }
 
         $params = json_decode($content, true);
-        $commitsCount = sizeof($params['commits']);
 
-        $text = <<<TEXT
-There is new *$commitsCount* commit(s) in repo *{$params["repository"]["name"]}* \n\n
-TEXT;
-
-        foreach ($params['commits'] as $commit) {
-            $date = new \DateTime($commit['timestamp']);
-            $date = $date->format('d.m.Y H:i');
-            $url = $commit['url'];
-            //$files = implode(', ', $commit['added']);
-            $files = '```';
-            foreach ($commit['added'] as $added) {
-                $files .= $added.'
-';
-            }
-            $files .= '```';
-            $message = trim(preg_replace('/\s\s+/', ' ', $commit['message']));
-            $text .= <<<TEXT
-_{$date}_ <{$url}|{$message}> 
-Files: {$files}        
-TEXT;
-        }
+        $text = $twig->render('git_message.html.twig', ['params' => $params]);
 
         $body = [
             'text' =>

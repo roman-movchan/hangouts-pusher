@@ -1,0 +1,13 @@
+There is new {{ params.commits|length }} commit(s) in repo {{ params.repository.name }}
+
+{% for commit in params.commits %}
+_{{ commit.timestamp|date("d.m.Y H:i") }}_ *{{ commit.message }}*
+<{{ commit.url }}|{{ commit.url }}>
+{% if commit.added|length > 0 %}
+```
+{% for added in commit.added %}
+{{ added  }}
+{% endfor %}
+```
+{% endif %}
+{% endfor %}
