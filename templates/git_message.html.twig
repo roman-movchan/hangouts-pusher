@@ -1,4 +1,4 @@
-{{ 'There is %count_commits% new commit(s) in repo'|trans({'%count_commits%': commits|length }) }} {{ repository.name }}
+{{ '<users/all>' }}{{ 'There is %count_commits% new commit(s) in repo'|trans({'%count_commits%': commits|length }) }} {{ repository.name }}
 
 {% for commit in commits %}
 _{{ commit.timestamp|date("d.m.Y H:i") }}_ *{{ commit.message|replace({"\n":' ', "\r":' '}) }}*
