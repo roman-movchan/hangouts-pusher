@@ -1,7 +1,7 @@
-There is new {{ params.commits|length }} commit(s) in repo {{ params.repository.name }}
+There is new {{ commits|length }} commit(s) in repo {{ repository.name }}
 
-{% for commit in params.commits %}
-_{{ commit.timestamp|date("d.m.Y H:i") }}_ *{{ commit.message }}*
+{% for commit in commits %}
+_{{ commit.timestamp|date("d.m.Y H:i") }}_ *{{ commit.message|replace({"\n":' ', "\r":' '} }}*
 <{{ commit.url }}|{{ commit.url }}>
 {% if commit.added|length > 0 %}
 ```

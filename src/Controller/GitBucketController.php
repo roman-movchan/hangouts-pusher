@@ -23,7 +23,7 @@ class GitBucketController extends Controller
 
         $params = json_decode($content, true);
 
-        $text = $twig->render('git_message.html.twig', ['params' => $params]);
+        $text = $twig->render('git_message.html.twig', [$params]);
 
         $body = [
             'text' =>
