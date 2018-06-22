@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +21,7 @@ class GitBucketController extends Controller
      * @param string $key
      * @return JsonResponse
      */
-    public function index(Request $request, string $key)
+    public function index(Request $request, LoggerInterface $logger, string $key)
     {
         $webHookUrls = [
             '9982ad58bdcbd6732604d451053ca5cd21f09da8' => 'https://chat.googleapis.com/v1/spaces/AAAARTJcHxs/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=d7ay9oT-T1C_P-Z1iMrVBUaU5bH30MPQNLuuLMlVT78%3D'
@@ -38,7 +39,7 @@ class GitBucketController extends Controller
             return $this->json([]);
         }
 
-        $this->container->get('logger')->info($content);
+        $logger->info($content);
 
         $params = json_decode($content, true);
 
