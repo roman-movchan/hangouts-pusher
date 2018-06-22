@@ -42,7 +42,7 @@ class GitBucketController extends Controller
         $logger->info($content);
 
         $params = json_decode($content, true);
-        dump($params);
+        //dump($params);
         $text = $this->container->get('twig')->render('git_message.html.twig', $params);
 
         $body = [
