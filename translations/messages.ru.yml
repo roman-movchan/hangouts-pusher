@@ -1,1 +1,4 @@
 'There is %count_commits% new commit(s) in repo': 'Получено %count_commits% новых комитов в репозиторие'
+added: Добавлено
+removed: Удалено
+modified: Изменено

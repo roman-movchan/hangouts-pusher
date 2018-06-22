@@ -4,9 +4,26 @@
 _{{ commit.timestamp|date("d.m.Y H:i") }}_ *{{ commit.message|replace({"\n":' ', "\r":' '}) }}*
 <{{ commit.url }}|{{ commit.url }}>
 {% if commit.added|length > 0 %}
+{{ 'added'|trans }}:
 ```
 {% for added in commit.added %}
 {{ added  }}
+{% endfor %}
+```
+{% endif %}
+{% if commit.removed|length > 0 %}
+{{ 'removed'|trans }}:
+```
+{% for removed in commit.removed %}
+{{ removed  }}
+{% endfor %}
+```
+{% endif %}
+{% if commit.modified|length > 0 %}
+{{ 'modified'|trans }}:
+```
+{% for modified in commit.modified %}
+{{ modified  }}
 {% endfor %}
 ```
 {% endif %}
