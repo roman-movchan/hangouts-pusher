@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -14,6 +15,10 @@ class GitBucketController extends Controller
     /**
      * @Route("/webhook/{key}", name="webhook_gitbucket")
      * @Method("POST")
+     *
+     * @param Request $request
+     * @param string $key
+     * @return JsonResponse
      */
     public function index(Request $request, string $key)
     {
@@ -32,6 +37,8 @@ class GitBucketController extends Controller
         if (empty($content)) {
             return $this->json([]);
         }
+
+        $this->container->get('logger')->info($content);
 
         $params = json_decode($content, true);
 
